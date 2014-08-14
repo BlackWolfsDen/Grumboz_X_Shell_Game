@@ -83,27 +83,32 @@ local guid = player:GetGUIDLow()
 	if(intid==2)then -- goto/return instructions
 		ShellsInstructions(1, player, unit, guid)
 	end
-	if(intid==3)then -- return game screen 
-		player:RemoveItem(currency, cost)
-		ShuffleShells(player, unit, guid)
-		ShellsOnPlay(1, player, unit, guid)
-	end
-	if(intid==4)then
-		player:GossipComplete()
-	end
-	if((intid==5)or(intid==6)or(intid==7))then
-		if(PShells[guid]~=(intid - 4))then
+
+	if(player:GetItemCount(currency)>=cost)then
+		if(intid==3)then -- return game screen 
+			player:RemoveItem(currency, cost)
+			ShuffleShells(player, unit, guid)
+			ShellsOnPlay(1, player, unit, guid)
+		end
+		if(intid==4)then
+			player:GossipComplete()
+		end
+		if((intid==5)or(intid==6)or(intid==7))then
+			if(PShells[guid]~=(intid - 4))then
+				ShellsOnLoose(1, player, unit, guid)
+			else
+				player:AddItem(currency, (cost*2))
+				ShellsOnWin(1, player, unit, guid)
+			end
+		end
+		if(intid==8)then
 			ShellsOnLoose(1, player, unit, guid)
-		else
-			player:AddItem(currency, (cost*2))
+		end
+		if(intid==9)then
 			ShellsOnWin(1, player, unit, guid)
 		end
-	end
-	if(intid==8)then
-		ShellsOnLoose(1, player, unit, guid)
-	end
-	if(intid==9)then
-		ShellsOnWin(1, player, unit, guid)
+	else
+		player:SendMessage("move along now son. you creeping me out . we only deal to players with "..currency_name.."'s.")
 	end
 end
 
