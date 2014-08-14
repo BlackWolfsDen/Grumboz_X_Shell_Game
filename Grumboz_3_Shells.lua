@@ -2,7 +2,7 @@ print("+-+-+-+-+-+-+-+-+")
 -- the 3 shells game
 -- from the Mad Scientist slp13at420 of EmuDevs.com
 local npcid = 390002
-local bet = 1
+local cost = 1
 local currency = 44209
 local PShells = {};
 local Shells = {};
@@ -84,7 +84,7 @@ local guid = player:GetGUIDLow()
 		ShellsInstructions(1, player, unit, guid)
 	end
 	if(intid==3)then -- return game screen 
-		player:RemoveItem(currency, bet)
+		player:RemoveItem(currency, cost)
 		ShuffleShells(player, unit, guid)
 		ShellsOnPlay(1, player, unit, guid)
 	end
@@ -95,7 +95,7 @@ local guid = player:GetGUIDLow()
 		if(PShells[guid]~=(intid - 4))then
 			ShellsOnLoose(1, player, unit, guid)
 		else
-			player:AddItem(currency, (bet*2))
+			player:AddItem(currency, (cost*2))
 			ShellsOnWin(1, player, unit, guid)
 		end
 	end
