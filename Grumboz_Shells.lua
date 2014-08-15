@@ -40,7 +40,7 @@ end
 
 local function ShellsOnHello(event, player, unit)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"costs "..cost.." "..currency_name.." per card.", 0, 1)
+	player:GossipMenuAddItem(10,"costs "..cost.." "..currency_name.." per play.", 0, 1)
 	player:GossipMenuAddItem(10,"Play.", 0, 3)
 	player:GossipMenuAddItem(10,"Instructions.", 0, 2)
 	player:GossipMenuAddItem(5, "never mind.", 0, 4)
