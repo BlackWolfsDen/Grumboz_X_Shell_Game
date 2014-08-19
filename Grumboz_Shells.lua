@@ -1,4 +1,4 @@
-print("+-+-+-+-+-+-+-+-+")
+print("+-+-+-+-+-+-+-+-+-+")
 -- the 3 shells game
 -- from the Mad Scientist slp13at420 of EmuDevs.com
 local npcid = 390002
@@ -118,5 +118,5 @@ end
 RegisterCreatureGossipEvent(npcid, 1, ShellsOnHello)
 RegisterCreatureGossipEvent(npcid, 2, ShellsOnSelect)
 
-print("Grumbo'z 3 Shells")
-print("+-+-+-+-+-+-+-+-+")
+print("+Grumbo'z 3 Shells+")
+print("+-+-+-+-+-+-+-+-+-+")
