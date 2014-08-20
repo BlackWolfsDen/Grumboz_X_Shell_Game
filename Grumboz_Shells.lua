@@ -74,9 +74,8 @@ local function ShellsOnWin(event, player, unit, guid)
 end
 
 local function ShellsOnSelect(event, player, unit, sender, intid, code)
-local ostime = tonumber(GetGameTime())
-local seed = (ostime*ostime)
-math.randomseed(seed)
+
+math.randomseed(tonumber(os.time()*os.time()))
 
 local guid = player:GetGUIDLow()
 
