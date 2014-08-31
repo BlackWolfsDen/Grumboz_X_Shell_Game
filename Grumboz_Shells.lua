@@ -110,7 +110,8 @@ local guid = player:GetGUIDLow()
 			ShellsOnWin(1, player, unit, guid)
 		end
 	else
-		player:SendMessage("move along now son. you creeping me out . we only deal to players with "..currency_name.."'s.")
+		player:SendBroadcastMessage("|cffFF0000move along now son, you creeping me out seee.|r we only deal to players with "..currency_name.."'s.")
+		player:GossipComplete()
 	end
 end
 
