@@ -24,19 +24,18 @@ local currency_name = GetItemNameById(currency)
 
 local function ShuffleShells(player, unit, guid)
 	PShells[guid] = 0;
-	local shell = math.random(1,3)
+	local shell = math.random(1,#Shells)
 	PShells[guid] = shell
 end
 
 local function ShellsInstructions(event, player, unit, guid)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(0,"3 shells will be shuffled around.", 0, 2)
+	player:GossipMenuAddItem(0, #Shells.." shells will be shuffled around.", 0, 2)
 	player:GossipMenuAddItem(0,"1 shell will contain a marker under it.", 0, 2)
 	player:GossipMenuAddItem(0,"Find the shell with the mark to win.", 0, 2)
 	player:GossipMenuAddItem(10,"back", 0, 1)
 	player:GossipMenuAddItem(10,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
-end
 
 local function ShellsOnHello(event, player, unit)
 	player:GossipClearMenu()
@@ -49,9 +48,11 @@ end
 
 local function ShellsOnPlay(event, player, unit, guid)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"I Pick the Red Shell.", 0, 5)
-	player:GossipMenuAddItem(10,"I Pick the Green Shell.", 0, 6)
-	player:GossipMenuAddItem(10,"I Pick the Blue Shell.", 0, 7)
+	local int = 5
+		for a=1, #Shells do
+			player:GossipMenuAddItem(10,"I Pick the "..Shells[a].." Shell.", 0, int)
+			int = int + 1
+		end
 	player:GossipSendMenu(1, unit)
 end
 
