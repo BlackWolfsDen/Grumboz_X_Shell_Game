@@ -1,45 +1,37 @@
-print("+-+-+-+-+-+-+-+-+-+")
--- the 3 shells game
+print("-+-+-+-+-+-+-+-+-+-")
+-- the X shells game
 -- from the Mad Scientist slp13at420 of EmuDevs.com
-local npcid = 390002
-local cost = 1
-local currency = 44209
+local npcid = 390002 -- dealer npc 	id.
+local currency = 44209 -- custom currency id.
+local cost = 1 -- how much of currency per play.
 local PShells = {};
 local Shells = {};
-local Shells = {{"Red"},{"Green"},{"Blue"}}
-
-local function GetItemNameById(id)
-local err = "ERROR GetItemById() name value is nil(Item "..id.." May not exist in database)"
-local search = WorldDBQuery("SELECT `name` FROM `item_template` WHERE `entry` = '"..id.."';");
-
-	if(search)then
-		local itemname = search:GetString(0)
-		return(itemname)
-	else
-		error(err)
-	end
-end
-
+local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many colors as you want.
+-- DO NOT EDIT BELOW HERE --
 local currency_name = GetItemNameById(currency)
 
 local function ShuffleShells(player, unit, guid)
+local ostime = tonumber(GetGameTime())
+local seed = (ostime*ostime)
+math.randomseed(seed)
 	PShells[guid] = 0;
-	local shell = math.random(1,#Shells)
+	local shell = math.random(1, #Shells)
 	PShells[guid] = shell
 end
 
 local function ShellsInstructions(event, player, unit, guid)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(0, #Shells.." shells will be shuffled around.", 0, 2)
+	player:GossipMenuAddItem(0,""..#Shells.." shells will be shuffled around.", 0, 2)
 	player:GossipMenuAddItem(0,"1 shell will contain a marker under it.", 0, 2)
-	player:GossipMenuAddItem(0,"Find the shell with the mark to win.", 0, 2)
+	player:GossipMenuAddItem(0,"Find the shell with the marker to win.", 0, 2)
 	player:GossipMenuAddItem(10,"back", 0, 1)
-	player:GossipMenuAddItem(10,"good bye.", 0, 4)
+	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
+end
 
 local function ShellsOnHello(event, player, unit)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"costs "..cost.." "..currency_name.." per play.", 0, 1)
+	player:GossipMenuAddItem(10,"costs "..cost.." "..currency_name.." per card.", 0, 1)
 	player:GossipMenuAddItem(10,"Play.", 0, 3)
 	player:GossipMenuAddItem(10,"Instructions.", 0, 2)
 	player:GossipMenuAddItem(5, "never mind.", 0, 4)
@@ -48,10 +40,8 @@ end
 
 local function ShellsOnPlay(event, player, unit, guid)
 	player:GossipClearMenu()
-	local int = 5
 		for a=1, #Shells do
-			player:GossipMenuAddItem(10,"I Pick the "..Shells[a].." Shell.", 0, int)
-			int = int + 1
+			player:GossipMenuAddItem(10,"I Pick the "..Shells[a][1].." Shell.", 0, 7+a)
 		end
 	player:GossipSendMenu(1, unit)
 end
@@ -59,24 +49,24 @@ end
 local function ShellsOnLoose(event, player, unit, guid)
 local shell = PShells[guid]
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"Sorry you loose.", 0, 8)
-	player:GossipMenuAddItem(10,"It was the "..Shells[shell][1].." shell.", 0, 8)
+	player:GossipMenuAddItem(10,"Sorry you loose.", 0, 5)
+	player:GossipMenuAddItem(10,"It was under the "..Shells[shell][1].." shell.", 0, 5)
 	player:GossipMenuAddItem(10,"again.", 0, 3)
-	player:GossipMenuAddItem(10,"good bye.", 0, 4)
+	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
 
 local function ShellsOnWin(event, player, unit, guid)
+local shell = PShells[guid]
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"!!You Win!!", 0, 9)
+	player:GossipMenuAddItem(10,"!!You Win!!", 0, 6)
+	player:GossipMenuAddItem(10,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
 	player:GossipMenuAddItem(10,"again.", 0, 3)
-	player:GossipMenuAddItem(10,"good bye.", 0, 4)
+	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
 
 local function ShellsOnSelect(event, player, unit, sender, intid, code)
-
-math.randomseed(tonumber(os.time()*os.time()))
 
 local guid = player:GetGUIDLow()
 
@@ -96,18 +86,18 @@ local guid = player:GetGUIDLow()
 		if(intid==4)then
 			player:GossipComplete()
 		end
-		if((intid==5)or(intid==6)or(intid==7))then
-			if(PShells[guid]~=(intid - 4))then
+		if(intid > 7)then
+			if(PShells[guid]~=(intid - 7))then
 				ShellsOnLoose(1, player, unit, guid)
 			else
 				player:AddItem(currency, (cost*2))
 				ShellsOnWin(1, player, unit, guid)
 			end
 		end
-		if(intid==8)then
+		if(intid==5)then
 			ShellsOnLoose(1, player, unit, guid)
 		end
-		if(intid==9)then
+		if(intid==6)then
 			ShellsOnWin(1, player, unit, guid)
 		end
 	else
@@ -119,5 +109,5 @@ end
 RegisterCreatureGossipEvent(npcid, 1, ShellsOnHello)
 RegisterCreatureGossipEvent(npcid, 2, ShellsOnSelect)
 
-print("+Grumbo'z 3 Shells+")
-print("+-+-+-+-+-+-+-+-+-+")
+print("-Grumbo'z "..#Shells.." Shells-")
+print("-+-+-+-+-+-+-+-+-+-")
