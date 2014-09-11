@@ -5,8 +5,7 @@ local npcid = 390002 -- dealer npc 	id.
 local currency = 44209 -- custom currency id.
 local cost = 1 -- how much of currency per play.
 local PShells = {};
-local Shells = {};
-Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many colors as you want. Default 3
+local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many colors as you want. Default 3
 
 -- DO NOT EDIT BELOW HERE --
 
