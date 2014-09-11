@@ -7,13 +7,15 @@ local cost = 1 -- how much of currency per play.
 local PShells = {};
 local Shells = {};
 local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many colors as you want.
+
 -- DO NOT EDIT BELOW HERE --
+
 local currency_name = GetItemNameById(currency)
 
 local function ShuffleShells(player, unit, guid)
-local ostime = tonumber(GetGameTime())
-local seed = (ostime*ostime)
-math.randomseed(seed)
+	local ostime = tonumber(GetGameTime())
+	local seed = (ostime*ostime)
+	math.randomseed(seed)
 	PShells[guid] = 0;
 	local shell = math.random(1, #Shells)
 	PShells[guid] = shell
@@ -47,7 +49,9 @@ local function ShellsOnPlay(event, player, unit, guid)
 end
 
 local function ShellsOnLoose(event, player, unit, guid)
+
 local shell = PShells[guid]
+
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(10,"Sorry you loose.", 0, 5)
 	player:GossipMenuAddItem(10,"It was under the "..Shells[shell][1].." shell.", 0, 5)
@@ -57,7 +61,9 @@ local shell = PShells[guid]
 end
 
 local function ShellsOnWin(event, player, unit, guid)
+
 local shell = PShells[guid]
+
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(10,"!!You Win!!", 0, 6)
 	player:GossipMenuAddItem(10,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
@@ -78,14 +84,17 @@ local guid = player:GetGUIDLow()
 	end
 
 	if(player:GetItemCount(currency)>=cost)then
+		
 		if(intid==3)then -- return game screen 
 			player:RemoveItem(currency, cost)
 			ShuffleShells(player, unit, guid)
 			ShellsOnPlay(1, player, unit, guid)
 		end
+		
 		if(intid==4)then
 			player:GossipComplete()
 		end
+		
 		if(intid > 7)then
 			if(PShells[guid]~=(intid - 7))then
 				ShellsOnLoose(1, player, unit, guid)
@@ -94,9 +103,11 @@ local guid = player:GetGUIDLow()
 				ShellsOnWin(1, player, unit, guid)
 			end
 		end
+			
 		if(intid==5)then
 			ShellsOnLoose(1, player, unit, guid)
 		end
+		
 		if(intid==6)then
 			ShellsOnWin(1, player, unit, guid)
 		end
