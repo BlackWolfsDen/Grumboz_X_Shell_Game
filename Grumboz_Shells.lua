@@ -25,9 +25,8 @@ end
 local currency_name = GetItemNameById(currency)
 
 local function ShuffleShells(player, unit, guid)
-	local ostime = tonumber(GetGameTime())
-	local seed = (ostime*ostime)
-	math.randomseed(seed)
+
+	math.randomseed(tonumber(GetGameTime()*GetGameTime()))
 	PShells[guid] = 0;
 	local shell = math.random(1, #Shells)
 	PShells[guid] = shell
