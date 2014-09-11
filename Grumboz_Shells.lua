@@ -34,9 +34,9 @@ end
 
 local function ShellsInstructions(event, player, unit, guid)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,""..#Shells.." shells will be shuffled around.", 0, 2)
-	player:GossipMenuAddItem(10,"1 shell will contain a marker under it.", 0, 2)
-	player:GossipMenuAddItem(10,"Find the shell with the marker to win.", 0, 2)
+	player:GossipMenuAddItem(3,""..#Shells.." shells will be shuffled around.", 0, 2)
+	player:GossipMenuAddItem(3,"1 shell will contain a marker under it.", 0, 2)
+	player:GossipMenuAddItem(3,"Find the shell with the marker to win.", 0, 2)
 	player:GossipMenuAddItem(5,"back", 0, 1)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
@@ -44,9 +44,9 @@ end
 
 local function ShellsOnHello(event, player, unit)
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"costs "..cost.." "..currency_name.." per card.", 0, 1)
-	player:GossipMenuAddItem(10,"Play.", 0, 3)
-	player:GossipMenuAddItem(10,"Instructions.", 0, 2)
+	player:GossipMenuAddItem(1,"costs "..cost.." "..currency_name.." per card.", 0, 1)
+	player:GossipMenuAddItem(6,"Play.", 0, 3)
+	player:GossipMenuAddItem(3,"Instructions.", 0, 2)
 	player:GossipMenuAddItem(5, "never mind.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
@@ -54,7 +54,7 @@ end
 local function ShellsOnPlay(event, player, unit, guid)
 	player:GossipClearMenu()
 		for a=1, #Shells do
-			player:GossipMenuAddItem(10,"I Pick the "..Shells[a][1].." Shell.", 0, 7+a)
+			player:GossipMenuAddItem(4,"I Pick the "..Shells[a][1].." Shell.", 0, 7+a)
 		end
 	player:GossipSendMenu(1, unit)
 end
@@ -64,8 +64,8 @@ local function ShellsOnLoose(event, player, unit, guid)
 local shell = PShells[guid]
 
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"Sorry you loose.", 0, 5)
-	player:GossipMenuAddItem(10,"It was under the "..Shells[shell][1].." shell.", 0, 5)
+	player:GossipMenuAddItem(1,"Sorry you loose.", 0, 5)
+	player:GossipMenuAddItem(1,"It was under the "..Shells[shell][1].." shell.", 0, 5)
 	player:GossipMenuAddItem(5,"again.", 0, 3)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
@@ -76,8 +76,8 @@ local function ShellsOnWin(event, player, unit, guid)
 local shell = PShells[guid]
 
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(10,"!!You Win!!", 0, 6)
-	player:GossipMenuAddItem(10,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
+	player:GossipMenuAddItem(6,"!!You Win!!", 0, 6)
+	player:GossipMenuAddItem(6,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
 	player:GossipMenuAddItem(5,"again.", 0, 3)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
