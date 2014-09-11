@@ -37,7 +37,7 @@ local function ShellsInstructions(event, player, unit, guid)
 	player:GossipMenuAddItem(10,""..#Shells.." shells will be shuffled around.", 0, 2)
 	player:GossipMenuAddItem(10,"1 shell will contain a marker under it.", 0, 2)
 	player:GossipMenuAddItem(10,"Find the shell with the marker to win.", 0, 2)
-	player:GossipMenuAddItem(10,"back", 0, 1)
+	player:GossipMenuAddItem(5,"back", 0, 1)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
@@ -66,7 +66,7 @@ local shell = PShells[guid]
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(10,"Sorry you loose.", 0, 5)
 	player:GossipMenuAddItem(10,"It was under the "..Shells[shell][1].." shell.", 0, 5)
-	player:GossipMenuAddItem(10,"again.", 0, 3)
+	player:GossipMenuAddItem(5,"again.", 0, 3)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
@@ -78,7 +78,7 @@ local shell = PShells[guid]
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(10,"!!You Win!!", 0, 6)
 	player:GossipMenuAddItem(10,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
-	player:GossipMenuAddItem(10,"again.", 0, 3)
+	player:GossipMenuAddItem(5,"again.", 0, 3)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
 end
