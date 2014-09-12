@@ -72,8 +72,8 @@ local function ShellsOnWin(event, player, unit, guid)
 local shell = PShells[guid]
 
 	player:GossipClearMenu()
-	player:GossipMenuAddItem(6,"!!You Win!!", 0, 6)
-	player:GossipMenuAddItem(6,"!!It WAS under the "..Shells[shell][1].." shell!!", 0, 6)
+	player:GossipMenuAddItem(6,"!! You Win !!", 0, 6)
+	player:GossipMenuAddItem(6,"!! IT WAS under the "..Shells[shell][1].." shell !!", 0, 6)
 	player:GossipMenuAddItem(5,"again.", 0, 3)
 	player:GossipMenuAddItem(5,"good bye.", 0, 4)
 	player:GossipSendMenu(1, unit)
