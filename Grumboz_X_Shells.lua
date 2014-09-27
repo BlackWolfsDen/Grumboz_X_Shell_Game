@@ -3,7 +3,7 @@ print("-+-+-+-+-+-+-+-+-+-")
 -- from the Mad Scientist slp13at420 of EmuDevs.com
 local npcid = 390002 -- dealer npc 	id.
 local currency = 44209 -- custom currency id.
-local cost = 1 -- how much of currency per play.
+local cost = 1 -- how much currency per play.
 local PShells = {};
 local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many colors as you want. Default 3
 
