@@ -10,7 +10,6 @@ local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many color
 -- DO NOT EDIT BELOW HERE --
 
 local currency_name = GetItemLink(currency)
-print("currency:"..currency_name)
 
 local function ShuffleShells(player, unit, guid)
 	math.randomseed(tonumber(GetGameTime()*GetGameTime()))
