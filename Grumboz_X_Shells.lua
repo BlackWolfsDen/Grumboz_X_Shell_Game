@@ -10,10 +10,11 @@ local Shells = {{"Red"},{"Green"},{"Blue"},} -- its dynamic so add as many color
 -- DO NOT EDIT BELOW HERE --
 
 local currency_name = GetItemLink(currency)
+print("currency:"..currency_name)
 
 local function ShuffleShells(player, unit, guid)
 	math.randomseed(tonumber(GetGameTime()*GetGameTime()))
-	PShells[guid] = math.random(1, #Shells)
+	PShells[guid] = {marker = math.random(1, #Shells)}
 end
 
 local function ShellsInstructions(event, player, unit, guid)
@@ -38,14 +39,14 @@ end
 local function ShellsOnPlay(event, player, unit, guid)
 	player:GossipClearMenu()
 		for a=1, #Shells do
-			player:GossipMenuAddItem(4,"I Pick the "..Shells[a][1].." Shell.", 0, 7+a)
+			player:GossipMenuAddItem(4,"I Pick the "..Shells[a][1].." Shell.", 0, 10+a)
 		end
 	player:GossipSendMenu(1, unit)
 end
 
 local function ShellsOnLoose(event, player, unit, guid)
 
-local shell = PShells[guid]
+local shell = PShells[guid].marker
 
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(1,"Sorry you loose.", 0, 5)
@@ -57,7 +58,7 @@ end
 
 local function ShellsOnWin(event, player, unit, guid)
 
-local shell = PShells[guid]
+local shell = PShells[guid].marker
 
 	player:GossipClearMenu()
 	player:GossipMenuAddItem(6,"!! You Win !!", 0, 6)
@@ -78,7 +79,7 @@ local guid = player:GetGUIDLow()
 		ShellsInstructions(1, player, unit, guid)
 	end
 
-	if(player:GetItemCount(currency)>=cost)then
+	if(player:GetItemCount(currency) > cost)then
 		
 		if(intid==3)then -- return game screen 
 			player:RemoveItem(currency, cost)
@@ -89,15 +90,6 @@ local guid = player:GetGUIDLow()
 		if(intid==4)then
 			player:GossipComplete()
 		end
-		
-		if(intid > 7)then
-			if(PShells[guid]~=(intid - 7))then
-				ShellsOnLoose(1, player, unit, guid)
-			else
-				player:AddItem(currency, (cost*2))
-				ShellsOnWin(1, player, unit, guid)
-			end
-		end
 			
 		if(intid==5)then
 			ShellsOnLoose(1, player, unit, guid)
@@ -105,6 +97,16 @@ local guid = player:GetGUIDLow()
 		
 		if(intid==6)then
 			ShellsOnWin(1, player, unit, guid)
+		end
+		
+		if(intid > 10)then
+
+			if(PShells[guid].marker~=(intid - 10))then
+				ShellsOnLoose(1, player, unit, guid)
+			else
+				player:AddItem(currency, (cost*2))
+				ShellsOnWin(1, player, unit, guid)
+			end
 		end
 	else
 		player:SendBroadcastMessage("|cffFF0000move along now son, you creeping me out seee.|r we only deal to players with "..currency_name.."'s.")
