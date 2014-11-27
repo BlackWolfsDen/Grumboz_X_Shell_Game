@@ -1,4 +1,4 @@
-print("-+-+-+-+-+-+-+-+-+-")
+print("-+-+-+-+-©-+-+-+-+-")
 -- the X shells game
 -- from the Mad Scientist slp13at420 of EmuDevs.com
 local npcid = 390002 -- dealer npc 	id.
